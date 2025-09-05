@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { Input } from '@/components/ui/input';
 import { 
   Cloud, 
   CloudRain, 
@@ -127,6 +129,33 @@ const getSeverityColor = (severity: string) => {
 };
 
 const ClimateSupport = () => {
+  const [location, setLocation] = useState('Punjab, India');
+  const [weatherData, setWeatherData] = useState(mockWeatherData);
+  const [selectedCrop, setSelectedCrop] = useState('');
+
+  // Simulate weather updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWeatherData(prev => ({
+        ...prev,
+        temperature: {
+          ...prev.temperature,
+          current: prev.temperature.current + (Math.random() - 0.5) * 2
+        },
+        humidity: Math.max(20, Math.min(90, prev.humidity + (Math.random() - 0.5) * 5))
+      }));
+    }, 30000); // Update every 30 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getLocationWeather = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLocation(`Lat: ${position.coords.latitude.toFixed(2)}, Lng: ${position.coords.longitude.toFixed(2)}`);
+      });
+    }
+  };
   return (
     <div className="space-y-6" id="climate">
       <div className="text-center space-y-2">
@@ -145,9 +174,14 @@ const ClimateSupport = () => {
                 {getConditionIcon(mockWeatherData.condition)}
                 Current Weather
               </CardTitle>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4" />
-                {mockWeatherData.location}
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <MapPin className="w-4 h-4" />
+                  {location}
+                </div>
+                <Button variant="ghost" size="sm" onClick={getLocationWeather}>
+                  Update Location
+                </Button>
               </div>
             </div>
             <CardDescription>
@@ -159,22 +193,22 @@ const ClimateSupport = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="text-center p-3 bg-primary/5 rounded-lg">
                 <Thermometer className="w-6 h-6 mx-auto mb-2 text-primary" />
-                <div className="text-2xl font-bold">{mockWeatherData.temperature.current}°C</div>
+                <div className="text-2xl font-bold">{Math.round(weatherData.temperature.current)}°C</div>
                 <div className="text-xs text-muted-foreground">Current</div>
               </div>
               <div className="text-center p-3 bg-accent/5 rounded-lg">
                 <Droplets className="w-6 h-6 mx-auto mb-2 text-accent" />
-                <div className="text-2xl font-bold">{mockWeatherData.humidity}%</div>
+                <div className="text-2xl font-bold">{Math.round(weatherData.humidity)}%</div>
                 <div className="text-xs text-muted-foreground">Humidity</div>
               </div>
               <div className="text-center p-3 bg-secondary/5 rounded-lg">
                 <CloudRain className="w-6 h-6 mx-auto mb-2 text-secondary" />
-                <div className="text-2xl font-bold">{mockWeatherData.rainfall.today}mm</div>
+                <div className="text-2xl font-bold">{weatherData.rainfall.today}mm</div>
                 <div className="text-xs text-muted-foreground">Rainfall</div>
               </div>
               <div className="text-center p-3 bg-success/5 rounded-lg">
                 <Wind className="w-6 h-6 mx-auto mb-2 text-success" />
-                <div className="text-2xl font-bold">{mockWeatherData.windSpeed}km/h</div>
+                <div className="text-2xl font-bold">{weatherData.windSpeed}km/h</div>
                 <div className="text-xs text-muted-foreground">Wind Speed</div>
               </div>
             </div>
@@ -186,12 +220,12 @@ const ClimateSupport = () => {
                   <Sprout className="w-4 h-4 text-primary" />
                   Soil Moisture Level
                 </span>
-                <span className="text-sm font-bold">{mockWeatherData.soilMoisture}%</span>
+                <span className="text-sm font-bold">{weatherData.soilMoisture}%</span>
               </div>
-              <Progress value={mockWeatherData.soilMoisture} className="h-3" />
+              <Progress value={weatherData.soilMoisture} className="h-3" />
               <p className="text-xs text-muted-foreground">
-                {mockWeatherData.soilMoisture > 60 ? 'Optimal for most crops' : 
-                 mockWeatherData.soilMoisture > 30 ? 'Moderate - consider irrigation' : 
+                {weatherData.soilMoisture > 60 ? 'Optimal for most crops' : 
+                 weatherData.soilMoisture > 30 ? 'Moderate - consider irrigation' : 
                  'Low - irrigation recommended'}
               </p>
             </div>

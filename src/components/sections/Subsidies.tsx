@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Gift, Calendar, Users, Target, ArrowRight, CheckCircle } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Gift, Calendar, Users, Target, ArrowRight, CheckCircle, Search, Filter, Calculator } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface SubsidyScheme {
   name: string;
@@ -90,6 +94,13 @@ const statusColors = {
 };
 
 const Subsidies = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedStatus, setSelectedStatus] = useState<string>('all');
+  const [budget, setBudget] = useState<string>('');
+  const [showCalculator, setShowCalculator] = useState(false);
+  const { toast } = useToast();
+
   const calculateDaysLeft = (deadline?: string) => {
     if (!deadline) return null;
     const today = new Date();
@@ -99,13 +110,115 @@ const Subsidies = () => {
     return diffDays;
   };
 
+  const filteredSchemes = subsidySchemes.filter(scheme => {
+    const matchesSearch = scheme.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         scheme.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || scheme.category === selectedCategory;
+    const matchesStatus = selectedStatus === 'all' || scheme.status === selectedStatus;
+    return matchesSearch && matchesCategory && matchesStatus;
+  });
+
+  const calculateBenefit = (scheme: SubsidyScheme, amount: number) => {
+    const maxAmountNum = parseInt(scheme.maxAmount.replace(/[₹,]/g, ''));
+    const benefit = Math.min((amount * scheme.subsidyPercent) / 100, maxAmountNum);
+    return benefit;
+  };
+
+  const handleApplySubsidy = (schemeName: string) => {
+    toast({
+      title: "Application Started",
+      description: `Redirecting to application form for ${schemeName}`,
+    });
+  };
+
   return (
     <div className="space-y-6" id="subsidies">
-      <div className="text-center space-y-2">
+      <div className="text-center space-y-4">
         <h2 className="text-3xl font-bold text-primary">Government Subsidies</h2>
         <p className="text-muted-foreground">
           Access financial assistance for pesticides, fertilizers, seeds, and farming equipment
         </p>
+        
+        {/* Search and Filter Controls */}
+        <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              placeholder="Search subsidies by name or description..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <SelectTrigger className="w-full md:w-48">
+              <Filter className="w-4 h-4 mr-2" />
+              <SelectValue placeholder="Category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              <SelectItem value="pesticide">Pesticides</SelectItem>
+              <SelectItem value="fertilizer">Fertilizers</SelectItem>
+              <SelectItem value="seeds">Seeds</SelectItem>
+              <SelectItem value="equipment">Equipment</SelectItem>
+              <SelectItem value="irrigation">Irrigation</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+            <SelectTrigger className="w-full md:w-48">
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Status</SelectItem>
+              <SelectItem value="active">Active</SelectItem>
+              <SelectItem value="closing-soon">Closing Soon</SelectItem>
+              <SelectItem value="upcoming">Upcoming</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button 
+            variant="outline" 
+            onClick={() => setShowCalculator(!showCalculator)}
+            className="w-full md:w-auto"
+          >
+            <Calculator className="w-4 h-4 mr-2" />
+            Calculator
+          </Button>
+        </div>
+
+        {/* Budget Calculator */}
+        {showCalculator && (
+          <Card className="max-w-md mx-auto">
+            <CardHeader>
+              <CardTitle className="text-lg">Subsidy Calculator</CardTitle>
+              <CardDescription>Calculate potential benefits for your investment</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <label className="text-sm font-medium">Investment Amount (₹)</label>
+                <Input
+                  type="number"
+                  placeholder="Enter amount"
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                />
+              </div>
+              {budget && filteredSchemes.length > 0 && (
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium">Potential Benefits:</h4>
+                  {filteredSchemes.slice(0, 3).map((scheme, idx) => {
+                    const benefit = calculateBenefit(scheme, parseInt(budget) || 0);
+                    return (
+                      <div key={idx} className="flex justify-between text-sm">
+                        <span>{scheme.name}:</span>
+                        <span className="font-bold text-primary">₹{benefit.toLocaleString()}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* Summary Stats */}
@@ -124,7 +237,7 @@ const Subsidies = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {subsidySchemes.map((scheme, index) => {
+        {filteredSchemes.length > 0 ? filteredSchemes.map((scheme, index) => {
           const daysLeft = calculateDaysLeft(scheme.deadline);
           
           return (
@@ -225,6 +338,7 @@ const Subsidies = () => {
                   <Button 
                     className="flex-1 bg-gradient-to-r from-primary to-primary-glow"
                     disabled={scheme.status === 'upcoming'}
+                    onClick={() => handleApplySubsidy(scheme.name)}
                   >
                     {scheme.status === 'upcoming' ? 'Coming Soon' : 'Apply Now'}
                     {scheme.status !== 'upcoming' && <ArrowRight className="w-4 h-4 ml-1" />}
@@ -233,7 +347,24 @@ const Subsidies = () => {
               </CardContent>
             </Card>
           );
-        })}
+        }) : (
+          <div className="col-span-full text-center py-12 text-muted-foreground">
+            <Gift className="w-16 h-16 mx-auto mb-4 opacity-50" />
+            <h3 className="text-lg font-medium mb-2">No subsidies found</h3>
+            <p>Try adjusting your search criteria or filters</p>
+            <Button 
+              variant="outline" 
+              className="mt-4"
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('all');
+                setSelectedStatus('all');
+              }}
+            >
+              Clear Filters
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Call to Action */}

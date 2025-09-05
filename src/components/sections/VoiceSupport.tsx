@@ -43,6 +43,24 @@ const VoiceSupport = () => {
 
   const handleStartRecording = () => {
     setIsRecording(true);
+    
+    // Start actual speech recognition if available
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = selectedLanguage === 'hindi' ? 'hi-IN' : 'en-IN';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setCurrentQuery(transcript);
+        handleStopRecording();
+      };
+      
+      recognition.start();
+    }
+    
     toast({
       title: "Recording Started",
       description: "Speak your question clearly. We support Hindi, English, and regional languages.",
@@ -78,15 +96,24 @@ const VoiceSupport = () => {
 
   const handlePlayResponse = (query: VoiceQuery) => {
     setIsPlaying(true);
+    
+    // Use Web Speech API for text-to-speech if available
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(query.response);
+      utterance.lang = query.language === 'hindi' ? 'hi-IN' : 'en-IN';
+      utterance.onend = () => setIsPlaying(false);
+      speechSynthesis.speak(utterance);
+    } else {
+      // Fallback simulation
+      setTimeout(() => {
+        setIsPlaying(false);
+      }, 3000);
+    }
+    
     toast({
       title: "Playing Response",
       description: `Playing in ${query.language}`,
     });
-    
-    // Simulate audio playback
-    setTimeout(() => {
-      setIsPlaying(false);
-    }, 3000);
   };
 
   const getCategoryColor = (category: string) => {

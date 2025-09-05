@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Banknote, Percent, Clock, CheckCircle, ArrowRight } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Banknote, Percent, Clock, CheckCircle, ArrowRight, Calculator, FileText } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface LoanScheme {
   name: string;
@@ -72,13 +76,85 @@ const statusColors = {
 };
 
 const LoanSchemes = () => {
+  const [selectedLoan, setSelectedLoan] = useState<LoanScheme | null>(null);
+  const [loanAmount, setLoanAmount] = useState('');
+  const [showEMICalculator, setShowEMICalculator] = useState(false);
+  const { toast } = useToast();
+
+  const calculateEMI = (principal: number, rate: number, tenure: number) => {
+    const monthlyRate = rate / (12 * 100);
+    const months = tenure * 12;
+    const emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / 
+                (Math.pow(1 + monthlyRate, months) - 1);
+    return emi;
+  };
+
+  const handleApplyLoan = (loan: LoanScheme) => {
+    setSelectedLoan(loan);
+    toast({
+      title: "Application Process Started",
+      description: `Proceeding with ${loan.name} application`,
+    });
+  };
   return (
     <div className="space-y-6" id="loans">
-      <div className="text-center space-y-2">
+      <div className="text-center space-y-4">
         <h2 className="text-3xl font-bold text-primary">Government Loan Schemes</h2>
         <p className="text-muted-foreground">
           Access affordable credit facilities for farming operations and infrastructure development
         </p>
+        
+        {/* Quick Actions */}
+        <div className="flex gap-4 justify-center">
+          <Button 
+            variant="outline" 
+            onClick={() => setShowEMICalculator(!showEMICalculator)}
+          >
+            <Calculator className="w-4 h-4 mr-2" />
+            EMI Calculator
+          </Button>
+          <Button variant="outline">
+            <FileText className="w-4 h-4 mr-2" />
+            Application Status
+          </Button>
+        </div>
+
+        {/* EMI Calculator */}
+        {showEMICalculator && (
+          <Card className="max-w-md mx-auto">
+            <CardHeader>
+              <CardTitle className="text-lg">EMI Calculator</CardTitle>
+              <CardDescription>Calculate your monthly installments</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-sm">Loan Amount (₹)</Label>
+                  <Input
+                    type="number"
+                    placeholder="e.g., 500000"
+                    value={loanAmount}
+                    onChange={(e) => setLoanAmount(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <Label className="text-sm">Interest Rate (%)</Label>
+                  <Input type="number" placeholder="7" defaultValue="7" />
+                </div>
+                <div>
+                  <Label className="text-sm">Tenure (Years)</Label>
+                  <Input type="number" placeholder="5" defaultValue="5" />
+                </div>
+                <div>
+                  <Label className="text-sm">Monthly EMI</Label>
+                  <div className="text-lg font-bold text-primary">
+                    {loanAmount ? `₹${calculateEMI(parseInt(loanAmount), 7, 5).toLocaleString('en-IN', {maximumFractionDigits: 0})}` : '₹0'}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -151,7 +227,10 @@ const LoanSchemes = () => {
                 <Button variant="outline" className="flex-1">
                   Learn More
                 </Button>
-                <Button className="flex-1 bg-gradient-to-r from-primary to-primary-glow">
+                <Button 
+                  className="flex-1 bg-gradient-to-r from-primary to-primary-glow"
+                  onClick={() => handleApplyLoan(loan)}
+                >
                   Apply Now
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
