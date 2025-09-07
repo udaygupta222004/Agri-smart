@@ -5,6 +5,10 @@ import { Badge } from '@/components/ui/badge';
 import { Mic, MicOff, Volume2, VolumeX, Phone, MessageSquare, Play, Pause } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
+interface VoiceSupportProps {
+  currentLanguage: string;
+}
+
 interface VoiceQuery {
   id: string;
   query: string;
@@ -33,7 +37,7 @@ const mockQueries: VoiceQuery[] = [
   }
 ];
 
-const VoiceSupport = () => {
+const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentQuery, setCurrentQuery] = useState('');

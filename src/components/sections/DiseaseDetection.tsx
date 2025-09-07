@@ -6,6 +6,10 @@ import { Progress } from '@/components/ui/progress';
 import { Upload, Camera, Loader2, CheckCircle, AlertTriangle, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
+interface DiseaseDetectionProps {
+  currentLanguage: string;
+}
+
 interface DetectionResult {
   disease: string;
   confidence: number;
@@ -34,7 +38,7 @@ const mockResults: DetectionResult[] = [
   }
 ];
 
-const DiseaseDetection = () => {
+const DiseaseDetection = ({ currentLanguage }: DiseaseDetectionProps) => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);

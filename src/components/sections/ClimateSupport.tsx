@@ -18,6 +18,10 @@ import {
   Sprout
 } from 'lucide-react';
 
+interface ClimateSupportProps {
+  currentLanguage: string;
+}
+
 interface WeatherData {
   location: string;
   temperature: { current: number; min: number; max: number };
@@ -128,7 +132,7 @@ const getSeverityColor = (severity: string) => {
   }
 };
 
-const ClimateSupport = () => {
+const ClimateSupport = ({ currentLanguage }: ClimateSupportProps) => {
   const [location, setLocation] = useState('Punjab, India');
   const [weatherData, setWeatherData] = useState(mockWeatherData);
   const [selectedCrop, setSelectedCrop] = useState('');

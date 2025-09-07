@@ -8,6 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Gift, Calendar, Users, Target, ArrowRight, CheckCircle, Search, Filter, Calculator } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
+interface SubsidiesProps {
+  currentLanguage: string;
+}
+
 interface SubsidyScheme {
   name: string;
   description: string;
@@ -93,13 +97,158 @@ const statusColors = {
   upcoming: 'bg-accent/10 text-accent'
 };
 
-const Subsidies = () => {
+const Subsidies = ({ currentLanguage }: SubsidiesProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [budget, setBudget] = useState<string>('');
   const [showCalculator, setShowCalculator] = useState(false);
   const { toast } = useToast();
+
+  const translations = {
+    en: {
+      title: 'Government Subsidies',
+      description: 'Access financial assistance for pesticides, fertilizers, seeds, and farming equipment',
+      search: 'Search subsidies by name or description...',
+      category: 'Category',
+      status: 'Status',
+      calculator: 'Calculator',
+      subsidyCalculator: 'Subsidy Calculator',
+      calculateBenefits: 'Calculate potential benefits for your investment',
+      investmentAmount: 'Investment Amount (₹)',
+      potentialBenefits: 'Potential Benefits:',
+      activeSchemes: 'Active Schemes',
+      totalBeneficiaries: 'Total Beneficiaries',
+      avgSubsidy: 'Avg Subsidy',
+      amountDisbursed: 'Amount Disbursed',
+      subsidyRate: 'Subsidy Rate',
+      maxAmount: 'Max Amount',
+      beneficiaries: 'Beneficiaries',
+      applicationDeadline: 'Application Deadline',
+      eligibilityCriteria: 'Eligibility Criteria',
+      viewDetails: 'View Details',
+      applyNow: 'Apply Now',
+      comingSoon: 'Coming Soon',
+      getApplicationHelp: 'Get Application Help',
+      downloadForms: 'Download Forms',
+      needHelp: 'Need Help with Applications?',
+      fieldOfficersHelp: 'Our field officers are available to assist you with subsidy applications and documentation'
+    },
+    hi: {
+      title: 'सरकारी सब्सिडी',
+      description: 'कीटनाशक, उर्वरक, बीज और कृषि उपकरणों के लिए वित्तीय सहायता प्राप्त करें',
+      search: 'नाम या विवरण के द्वारा सब्सिडी खोजें...',
+      category: 'श्रेणी',
+      status: 'स्थिति',
+      calculator: 'कैलकुलेटर',
+      subsidyCalculator: 'सब्सिडी कैलकुलेटर',
+      calculateBenefits: 'अपने निवेश के लिए संभावित लाभों की गणना करें',
+      investmentAmount: 'निवेश राशि (₹)',
+      potentialBenefits: 'संभावित लाभ:',
+      activeSchemes: 'सक्रिय योजनाएं',
+      totalBeneficiaries: 'कुल लाभार्थी',
+      avgSubsidy: 'औसत सब्सिडी',
+      amountDisbursed: 'वितरित राशि',
+      subsidyRate: 'सब्सिडी दर',
+      maxAmount: 'अधिकतम राशि',
+      beneficiaries: 'लाभार्थी',
+      applicationDeadline: 'आवेदन की अंतिम तारीख',
+      eligibilityCriteria: 'पात्रता मानदंड',
+      viewDetails: 'विवरण देखें',
+      applyNow: 'अब आवेदन करें',
+      comingSoon: 'जल्द आ रहा है',
+      getApplicationHelp: 'आवेदन सहायता पाएं',
+      downloadForms: 'फॉर्म डाउनलोड करें',
+      needHelp: 'आवेदन में सहायता चाहिए?',
+      fieldOfficersHelp: 'हमारे फील्ड ऑफिसर सब्सिडी आवेदन और दस्तावेजों में आपकी सहायता के लिए उपलब्ध हैं'
+    },
+    te: {
+      title: 'ప్రభుత్వ రాజసహాయం',
+      description: 'పురుగుమందులు, ఎరువులు, విత్తనాలు మరియు వ్యవసాయ పరికరాలకు ఆర్థిక సహాయం పొందండి',
+      search: 'పేరు లేదా వివరణ ద్వారా రాజసహాయాలను వెతకండి...',
+      category: 'వర్గం',
+      status: 'స్థితి',
+      calculator: 'కాలిక్యులేటర్',
+      subsidyCalculator: 'రాజసహాయ కాలిక్యులేటర్',
+      calculateBenefits: 'మీ పెట్టుబడికి సంభావ్య ప్రయోజనాలను లెక్కించండి',
+      investmentAmount: 'పెట్టుబడి మొత్తం (₹)',
+      potentialBenefits: 'సంభావ్య ప్రయోజనాలు:',
+      activeSchemes: 'సక్రియ పథకాలు',
+      totalBeneficiaries: 'మొత్తం లబ్ధిదారులు',
+      avgSubsidy: 'సగటు రాజసహాయం',
+      amountDisbursed: 'పంపిణీ చేసిన మొత్తం',
+      subsidyRate: 'రాజసహాయ రేటు',
+      maxAmount: 'గరిష్ట మొత్తం',
+      beneficiaries: 'లబ్ధిదారులు',
+      applicationDeadline: 'దరఖాస్తు గడువు',
+      eligibilityCriteria: 'అర్హత ప్రమాణాలు',
+      viewDetails: 'వివరాలు చూడండి',
+      applyNow: 'ఇప్పుడు దరఖాస్తు చేసుకోండి',
+      comingSoon: 'త్వరలో వస్తుంది',
+      getApplicationHelp: 'దరఖాస్తు సహాయం పొందండి',
+      downloadForms: 'ఫారమ్‌లను డౌన్‌లోడ్ చేయండి',
+      needHelp: 'దరఖాస్తులతో సహాయం కావాలా?',
+      fieldOfficersHelp: 'మా క్షేత్ర అధికారులు రాజసహాయ దరఖాస్తులు మరియు పత్రాలతో మీకు సహాయం చేయడానికి అందుబాటులో ఉన్నారు'
+    },
+    ta: {
+      title: 'அரசு மானியங்கள்',
+      description: 'பூச்சிக்கொல்லிகள், உரங்கள், விதைகள் மற்றும் விவசாய உபகரணங்களுக்கு நிதி உதவி பெறுங்கள்',
+      search: 'பெயர் அல்லது விளக்கத்தின் மூலம் மானியங்களைத் தேடுங்கள்...',
+      category: 'வகை',
+      status: 'நிலை',
+      calculator: 'கால்குலேட்டர்',
+      subsidyCalculator: 'மானிய கால்குலேட்டர்',
+      calculateBenefits: 'உங்கள் முதலீட்டிற்கான சாத்தியமான பலன்களைக் கணக்கிடுங்கள்',
+      investmentAmount: 'முதலீட்டு தொகை (₹)',
+      potentialBenefits: 'சாத்தியமான பலன்கள்:',
+      activeSchemes: 'செயலில் உள்ள திட்டங்கள்',
+      totalBeneficiaries: 'மொத்த பயனாளிகள்',
+      avgSubsidy: 'சராசரி மானியம்',
+      amountDisbursed: 'வழங்கப்பட்ட தொகை',
+      subsidyRate: 'மானிய விகிதம்',
+      maxAmount: 'அதிகபட்ச தொகை',
+      beneficiaries: 'பயனாளிகள்',
+      applicationDeadline: 'விண்ணப்ப கடைசி நாள்',
+      eligibilityCriteria: 'தகுதி அளவுகோல்கள்',
+      viewDetails: 'விவரங்களைப் பார்க்கவும்',
+      applyNow: 'இப்போது விண்ணப்பிக்கவும்',
+      comingSoon: 'விரைவில் வரும்',
+      getApplicationHelp: 'விண்ணப்ப உதவி பெறுங்கள்',
+      downloadForms: 'படிவங்களைப் பதிவிறக்கவும்',
+      needHelp: 'விண்ணப்பங்களில் உதவி தேவையா?',
+      fieldOfficersHelp: 'எங்கள் கள அதிகாரிகள் மானிய விண்ணப்பங்கள் மற்றும் ஆவணங்களில் உங்களுக்கு உதவ கிடைக்கின்றனர்'
+    },
+    ml: {
+      title: 'സർക്കാർ സബ്സിഡികൾ',
+      description: 'കീടനാശിനികൾ, വളങ്ങൾ, വിത്തുകൾ, കാർഷിക ഉപകരണങ്ങൾ എന്നിവയ്ക്കായി സാമ്പത്തിക സഹായം നേടുക',
+      search: 'പേര് അല്ലെങ്കിൽ വിവരണം ഉപയോഗിച്ച് സബ്സിഡികൾ തിരയുക...',
+      category: 'വിഭാഗം',
+      status: 'സ്ഥിതി',
+      calculator: 'കാൽക്കുലേറ്റർ',
+      subsidyCalculator: 'സബ്സിഡി കാൽക്കുലേറ്റർ',
+      calculateBenefits: 'നിങ്ങളുടെ നിക്ഷേപത്തിനുള്ള സാധ്യതയുള്ള നേട്ടങ്ങൾ കണക്കാക്കുക',
+      investmentAmount: 'നിക്ഷേപ തുക (₹)',
+      potentialBenefits: 'സാധ്യതയുള്ള നേട്ടങ്ങൾ:',
+      activeSchemes: 'സജീവ പദ്ധതികൾ',
+      totalBeneficiaries: 'മൊത്തം ഗുണഭോക്താക്കൾ',
+      avgSubsidy: 'ശരാശരി സബ്സിഡി',
+      amountDisbursed: 'വിതരണം ചെയ്ത തുക',
+      subsidyRate: 'സബ്സിഡി നിരക്ക്',
+      maxAmount: 'പരമാവധി തുക',
+      beneficiaries: 'ഗുണഭോക്താക്കൾ',
+      applicationDeadline: 'അപേക്ഷാ അവസാന തീയതി',
+      eligibilityCriteria: 'യോഗ്യതാ മാനദണ്ഡങ്ങൾ',
+      viewDetails: 'വിവരങ്ങൾ കാണുക',
+      applyNow: 'ഇപ്പോൾ അപേക്ഷിക്കുക',
+      comingSoon: 'ഉടൻ വരുന്നു',
+      getApplicationHelp: 'അപേക്ഷാ സഹായം നേടുക',
+      downloadForms: 'ഫോമുകൾ ഡൗൺലോഡ് ചെയ്യുക',
+      needHelp: 'അപേക്ഷകളിൽ സഹായം വേണോ?',
+      fieldOfficersHelp: 'ഞങ്ങളുടെ ഫീൽഡ് ഓഫീസർമാർ സബ്സിഡി അപേക്ഷകളിലും ഡോക്യുമെന്റേഷനിലും നിങ്ങളെ സഹായിക്കാൻ ലഭ്യമാണ്'
+    }
+  };
+
+  const t = translations[currentLanguage as keyof typeof translations] || translations.en;
 
   const calculateDaysLeft = (deadline?: string) => {
     if (!deadline) return null;

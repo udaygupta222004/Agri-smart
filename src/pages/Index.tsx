@@ -80,17 +80,17 @@ const Index = () => {
   const renderActiveSection = () => {
     switch (activeSection) {
       case 'schemes':
-        return <MSPSchemes />;
+        return <MSPSchemes currentLanguage={currentLanguage} />;
       case 'loans':
-        return <LoanSchemes />;
+        return <LoanSchemes currentLanguage={currentLanguage} />;
       case 'subsidies':
-        return <Subsidies />;
+        return <Subsidies currentLanguage={currentLanguage} />;
       case 'climate':
-        return <ClimateSupport />;
+        return <ClimateSupport currentLanguage={currentLanguage} />;
       case 'disease-detection':
-        return <DiseaseDetection />;
+        return <DiseaseDetection currentLanguage={currentLanguage} />;
       case 'support':
-        return <VoiceSupport />;
+        return <VoiceSupport currentLanguage={currentLanguage} />;
       default:
         return (
           <>
