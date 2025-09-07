@@ -207,6 +207,8 @@ const Index = () => {
       <Header 
         currentLanguage={currentLanguage} 
         onLanguageChange={setCurrentLanguage}
+        activeSection={activeSection}
+        onSectionChange={setActiveSection}
       />
       
       <main className="pb-16">
