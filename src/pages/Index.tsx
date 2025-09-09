@@ -95,28 +95,29 @@ const Index = () => {
         return (
           <>
             {/* Hero Section */}
-            <section className="text-center py-16 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+            <section className="text-center py-20 bg-gradient-to-br from-background via-primary/5 to-background">
               <div className="container mx-auto px-4 space-y-8">
-                <div className="space-y-4">
-                  <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    FarmAssist
+                <div className="space-y-6">
+                  {/* Badge */}
+                  <div className="inline-flex items-center px-4 py-2 bg-primary rounded-full text-primary-foreground text-sm font-medium">
+                    🌾 AI-Powered Agricultural Support for Indian Farmers
+                  </div>
+                  
+                  <h1 className="text-4xl md:text-6xl font-bold text-foreground max-w-5xl mx-auto leading-tight">
+                    Empowering Indian Farmers with{' '}
+                    <span className="text-primary">Krishi Jyoti</span>
                   </h1>
-                  <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                    किसान सहायता केंद्र - Your Complete Digital Farming Solution
-                  </p>
-                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                    Access government schemes, get instant crop disease diagnosis, receive weather predictions, 
-                    and interact with AI-powered voice support - all in your local language.
+                  
+                  <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                    Get government scheme information, MSP rates, subsidies, climate predictions, disease detection, 
+                    and voice-based support—all in one comprehensive platform designed for Indian agriculture.
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <Button size="lg" variant="hero" className="min-w-48">
-                    Get Started Today
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+                  <Button size="lg" className="min-w-48 bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Get Started
                     <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                  <Button size="lg" variant="outline" className="min-w-48">
-                    Watch Demo
                   </Button>
                 </div>
 
@@ -165,10 +166,14 @@ const Index = () => {
 
             <Separator />
 
-            {/* Features Highlight */}
+            {/* About Section */}
             <section className="py-16 bg-gradient-to-r from-muted/30 to-muted/10">
               <div className="container mx-auto px-4 text-center space-y-8">
-                <h2 className="text-3xl font-bold text-primary">Why Choose FarmAssist?</h2>
+                <h2 className="text-3xl font-bold text-primary">About Krishi Jyoti</h2>
+                <p className="text-lg text-muted-foreground max-w-4xl mx-auto mb-12">
+                  Krishi Jyoti is a comprehensive AI-powered platform designed specifically for Indian farmers, 
+                  providing access to government schemes, market intelligence, and modern farming solutions.
+                </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {[
@@ -232,7 +237,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t bg-muted/30 py-8">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>&copy; 2024 FarmAssist - Government of India Initiative</p>
+          <p>&copy; 2024 Krishi Jyoti - Government of India Initiative</p>
           <p className="text-sm mt-2">Empowering farmers with technology and government support</p>
         </div>
       </footer>

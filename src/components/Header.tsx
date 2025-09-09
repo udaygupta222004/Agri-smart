@@ -27,7 +27,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       subsidies: 'Subsidies',
       diseaseDetection: 'Disease Detection',
       voiceSupport: 'Voice Support',
-      title: 'FarmAssist',
+      title: 'Krishi Jyoti',
       subtitle: 'किसान सहायता केंद्र'
     },
     hi: {
@@ -37,7 +37,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       subsidies: 'सब्सिडी',
       diseaseDetection: 'रोग पहचान',
       voiceSupport: 'आवाज़ सहायता',
-      title: 'FarmAssist',
+      title: 'Krishi Jyoti',
       subtitle: 'किसान सहायता केंद्र'
     },
     te: {
@@ -47,7 +47,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       subsidies: 'సబ్సిడీలు',
       diseaseDetection: 'వ్యాధి గుర్తింపు',
       voiceSupport: 'వాయిస్ సపోర్ట్',
-      title: 'FarmAssist',
+      title: 'Krishi Jyoti',
       subtitle: 'రైతు సహాయ కేంద్రం'
     },
     ta: {
@@ -57,7 +57,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       subsidies: 'மானியங்கள்',
       diseaseDetection: 'நோய் கண்டறிதல்',
       voiceSupport: 'குரல் ஆதரவு',
-      title: 'FarmAssist', 
+      title: 'Krishi Jyoti',
       subtitle: 'விவசாயி உதவி மையம்'
     },
     ml: {
@@ -67,7 +67,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       subsidies: 'സബ്സിഡികൾ', 
       diseaseDetection: 'രോഗ കണ്ടെത്തൽ',
       voiceSupport: 'വോയ്സ് സപ്പോർട്ട്',
-      title: 'FarmAssist',
+      title: 'Krishi Jyoti',
       subtitle: 'കർഷക സഹായ കേന്ദ്രം'
     }
   };
