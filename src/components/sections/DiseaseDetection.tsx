@@ -55,7 +55,8 @@ const DiseaseDetection = ({ currentLanguage }: DiseaseDetectionProps) => {
         setImagePreview(e.target?.result as string);
       };
       reader.readAsDataURL(file);
-      setResults(null);
+      setResults(null); // Clear any previous results
+      // Don't auto-analyze, wait for user to click analyze button
     }
   };
 

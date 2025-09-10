@@ -9,6 +9,7 @@ import VoiceSupport from '@/components/sections/VoiceSupport';
 import ClimateSupport from '@/components/sections/ClimateSupport';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
 import {
   Wheat,
   Banknote,
@@ -306,45 +307,46 @@ const Index = () => {
         return (
           <>
             {/* Hero Section */}
-            <section className="text-center py-20 bg-gradient-to-br from-background via-primary/5 to-background">
-              <div className="container mx-auto px-4 space-y-8">
-                <div className="space-y-6">
-                  {/* Badge */}
-                  <div className="inline-flex items-center px-4 py-2 bg-primary rounded-full text-primary-foreground text-sm font-medium">
+            <section className="relative py-20 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.05)_1px,transparent_1px)] [background-size:40px_40px] animate-pulse" />
+              <div className="relative container mx-auto px-4">
+                <div className="text-center space-y-8">
+                  <Badge variant="secondary" className="px-6 py-2 bg-primary/10 border-primary/20 text-primary">
                     {t.aiPowered}
-                  </div>
+                  </Badge>
                   
-                  <h1 className="text-4xl md:text-6xl font-bold text-foreground max-w-5xl mx-auto leading-tight">
-                    {t.heroTitle}{' '}
-                    <span className="text-primary">Krishi Jyoti</span>
+                  <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight max-w-5xl mx-auto">
+                    {t.heroTitle}
                   </h1>
                   
                   <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
                     {t.heroSubtitle}
                   </p>
-                </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                  <Button size="lg" className="min-w-48 bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button 
+                    size="lg" 
+                    className="px-10 py-4 text-lg font-semibold bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" 
+                    onClick={() => setActiveSection('schemes')}
+                  >
                     {t.getStarted}
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
-                </div>
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
-                  {[
-                    { icon: Users, value: '50,000+', label: t.farmersServed },
-                    { icon: TrendingUp, value: '₹2.5Cr', label: t.subsidiesClaimed },
-                    { icon: Target, value: '95%', label: t.detectionAccuracy },
-                    { icon: Mic, value: '12', label: t.languagesSupported }
-                  ].map((stat, index) => (
-                    <div key={index} className="text-center space-y-2">
-                      <stat.icon className="w-8 h-8 mx-auto text-primary" />
-                      <div className="text-2xl font-bold text-primary">{stat.value}</div>
-                      <div className="text-sm text-muted-foreground">{stat.label}</div>
-                    </div>
-                  ))}
+                  {/* Stats */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
+                    {[
+                      { icon: Users, value: '2.5M+', label: t.farmersServed, color: 'text-primary' },
+                      { icon: TrendingUp, value: '₹500Cr+', label: t.subsidiesClaimed, color: 'text-secondary' },
+                      { icon: Target, value: '94%', label: t.detectionAccuracy, color: 'text-accent' },
+                      { icon: Mic, value: '15+', label: t.languagesSupported, color: 'text-primary' }
+                    ].map((stat, index) => (
+                      <div key={index} className="text-center p-6 rounded-xl bg-background/80 backdrop-blur-sm border border-primary/10 hover:border-primary/20 transition-all duration-300">
+                        <stat.icon className={`w-8 h-8 mx-auto mb-3 ${stat.color}`} />
+                        <div className={`text-2xl md:text-3xl font-bold mb-2 ${stat.color}`}>{stat.value}</div>
+                        <div className="text-sm text-muted-foreground">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </section>
@@ -352,22 +354,28 @@ const Index = () => {
             <Separator />
 
             {/* Dashboard Cards */}
-            <section className="py-16">
+            <section className="py-20 bg-gradient-to-b from-background to-primary/5">
               <div className="container mx-auto px-4">
-                <div className="text-center mb-12 space-y-4">
-                  <h2 className="text-3xl font-bold text-primary">
+                <div className="text-center mb-16 space-y-6">
+                  <h2 className="text-3xl md:text-4xl font-bold text-primary">
                     {t.completeFarming}
                   </h2>
-                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                  <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                     {t.everythingYouNeed}
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {dashboardCards.map((card, index) => (
                     <DashboardCard
                       key={index}
-                      {...card}
+                      title={card.title}
+                      description={card.description}
+                      icon={card.icon}
+                      buttonText={card.buttonText}
+                      onClick={card.onClick}
+                      variant={card.variant}
+                      className="hover:scale-105 transition-transform duration-300"
                     />
                   ))}
                 </div>
