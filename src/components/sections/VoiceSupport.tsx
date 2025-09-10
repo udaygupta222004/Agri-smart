@@ -40,9 +40,11 @@ const mockQueries: VoiceQuery[] = [
 const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentPlayingId, setCurrentPlayingId] = useState<string | null>(null);
   const [currentQuery, setCurrentQuery] = useState('');
   const [voiceQueries, setVoiceQueries] = useState<VoiceQuery[]>(mockQueries);
   const [selectedLanguage, setSelectedLanguage] = useState('hindi');
+  const speechSynthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
   const { toast } = useToast();
 
   const handleStartRecording = () => {
@@ -99,24 +101,70 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
   };
 
   const handlePlayResponse = (query: VoiceQuery) => {
+    // Stop any currently playing audio
+    if (isPlaying) {
+      handleStopAudio();
+      return;
+    }
+
     setIsPlaying(true);
+    setCurrentPlayingId(query.id);
     
     // Use Web Speech API for text-to-speech if available
     if ('speechSynthesis' in window) {
+      // Cancel any existing speech
+      speechSynthesis.cancel();
+      
       const utterance = new SpeechSynthesisUtterance(query.response);
       utterance.lang = query.language === 'hindi' ? 'hi-IN' : 'en-IN';
-      utterance.onend = () => setIsPlaying(false);
+      utterance.rate = 0.9; // Slightly slower for better comprehension
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      
+      utterance.onend = () => {
+        setIsPlaying(false);
+        setCurrentPlayingId(null);
+        speechSynthesisRef.current = null;
+      };
+      
+      utterance.onerror = () => {
+        setIsPlaying(false);
+        setCurrentPlayingId(null);
+        speechSynthesisRef.current = null;
+        toast({
+          title: "Audio Error",
+          description: "Failed to play audio response",
+          variant: "destructive"
+        });
+      };
+      
+      speechSynthesisRef.current = utterance;
       speechSynthesis.speak(utterance);
     } else {
       // Fallback simulation
       setTimeout(() => {
         setIsPlaying(false);
+        setCurrentPlayingId(null);
       }, 3000);
     }
     
     toast({
       title: "Playing Response",
       description: `Playing in ${query.language}`,
+    });
+  };
+
+  const handleStopAudio = () => {
+    if ('speechSynthesis' in window) {
+      speechSynthesis.cancel();
+    }
+    setIsPlaying(false);
+    setCurrentPlayingId(null);
+    speechSynthesisRef.current = null;
+    
+    toast({
+      title: "Audio Stopped",
+      description: "Voice playback has been stopped",
     });
   };
 
@@ -275,12 +323,11 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
                       variant="outline" 
                       size="sm"
                       onClick={() => handlePlayResponse(query)}
-                      disabled={isPlaying}
                     >
-                      {isPlaying ? (
+                      {isPlaying && currentPlayingId === query.id ? (
                         <>
                           <Pause className="w-3 h-3 mr-1" />
-                          Playing...
+                          Stop Audio
                         </>
                       ) : (
                         <>
@@ -289,6 +336,16 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
                         </>
                       )}
                     </Button>
+                    {isPlaying && currentPlayingId === query.id && (
+                      <Button 
+                        variant="destructive" 
+                        size="sm"
+                        onClick={handleStopAudio}
+                      >
+                        <VolumeX className="w-3 h-3 mr-1" />
+                        Stop
+                      </Button>
+                    )}
                     <Button variant="ghost" size="sm">
                       Share
                     </Button>
