@@ -77,8 +77,12 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
     <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">🌾</span>
+          <div className="w-12 h-12 rounded-lg overflow-hidden bg-white/10 backdrop-blur-sm border border-primary/20 flex items-center justify-center">
+            <img 
+              src="/lovable-uploads/3a2c91ba-2fa8-413d-979f-65c3019602a9.png" 
+              alt="Krishi Jyoti Logo" 
+              className="w-10 h-10 object-contain"
+            />
           </div>
           <div>
             <h1 className="text-xl font-bold text-primary">{t.title}</h1>
