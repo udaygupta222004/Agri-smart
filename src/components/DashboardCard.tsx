@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 interface DashboardCardProps {
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: React.ComponentType<any>;
   buttonText: string;
   onClick: () => void;
   variant?: 'default' | 'primary' | 'secondary' | 'accent';
