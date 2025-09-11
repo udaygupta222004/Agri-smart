@@ -269,7 +269,7 @@ const Index = () => {
       icon: CloudSun,
       buttonText: t.getWeather,
       onClick: () => setActiveSection('climate'),
-      variant: 'default' as const
+      variant: 'secondary' as const
     },
     {
       title: t.diseaseDetection,
@@ -334,12 +334,12 @@ const Index = () => {
 
                   {/* Stats */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
-                    {[
-                      { icon: Users, value: '2.5M+', label: t.farmersServed, color: 'text-primary' },
-                      { icon: TrendingUp, value: '₹500Cr+', label: t.subsidiesClaimed, color: 'text-secondary' },
-                      { icon: Target, value: '94%', label: t.detectionAccuracy, color: 'text-accent' },
-                      { icon: Mic, value: '15+', label: t.languagesSupported, color: 'text-primary' }
-                    ].map((stat, index) => (
+                     {[
+                       { icon: Users, value: '1000+', label: 'Districts Covered', color: 'text-primary' },
+                       { icon: TrendingUp, value: '50+', label: 'Government Schemes', color: 'text-secondary' },
+                       { icon: Target, value: '94%', label: t.detectionAccuracy, color: 'text-accent' },
+                       { icon: Mic, value: '15+', label: t.languagesSupported, color: 'text-primary' }
+                     ].map((stat, index) => (
                       <div key={index} className="text-center p-6 rounded-xl bg-background/80 backdrop-blur-sm border border-primary/10 hover:border-primary/20 transition-all duration-300">
                         <stat.icon className={`w-8 h-8 mx-auto mb-3 ${stat.color}`} />
                         <div className={`text-2xl md:text-3xl font-bold mb-2 ${stat.color}`}>{stat.value}</div>
