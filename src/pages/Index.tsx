@@ -31,7 +31,7 @@ const Index = () => {
   const translations = {
     en: {
       aiPowered: '🌾 AI-Powered Agricultural Support for Indian Farmers - Empowering Indian Farmers with Krishi Jyoti',
-      heroTitle: 'Empowering Indian Farmers with',
+      heroTitle: 'Empowering Indian Farmers with Krishi Jyoti',
       heroSubtitle: 'Get government scheme information, MSP rates, subsidies, climate predictions, disease detection, and voice-based support—all in one comprehensive platform designed for Indian agriculture.',
       getStarted: 'Get Started',
       farmersServed: 'Farmers Served',
