@@ -47,6 +47,126 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
   const speechSynthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
   const { toast } = useToast();
 
+  const translations = {
+    en: {
+      title: 'Voice Support System',
+      description: 'Get farming advice in your local language through voice interaction',
+      voiceAssistant: 'Voice Assistant',
+      assistantDescription: 'Ask questions about farming, weather, schemes, or diseases in Hindi, English, or regional languages',
+      recording: 'Recording...',
+      stopRecordingTap: 'Tap to stop recording',
+      readyToHelp: 'Ready to Help',
+      startVoiceQueryTap: 'Tap to start voice query',
+      stopRecordingBtn: 'Stop Recording',
+      startVoiceQueryBtn: 'Start Voice Query',
+      supportedLanguages: 'Supported Languages',
+      callExpert: 'Call Expert',
+      textChat: 'Text Chat',
+      recentQueries: 'Recent Queries',
+      interactionHistory: 'Your voice interactions and responses',
+      stopAudio: 'Stop Audio',
+      playAudio: 'Play Audio',
+      stop: 'Stop',
+      share: 'Share',
+      noQueries: 'No voice queries yet',
+      startAsking: 'Start by asking a farming question'
+    },
+    hi: {
+      title: 'आवाज़ सहायता प्रणाली',
+      description: 'आवाज़ इंटरेक्शन के माध्यम से अपनी स्थानीय भाषा में कृषि सलाह प्राप्त करें',
+      voiceAssistant: 'आवाज़ सहायक',
+      assistantDescription: 'हिंदी, अंग्रेजी या क्षेत्रीय भाषाओं में कृषि, मौसम, योजनाओं या बीमारियों के बारे में प्रश्न पूछें',
+      recording: 'रिकॉर्डिंग...',
+      stopRecordingTap: 'रिकॉर्डिंग रोकने के लिए टैप करें',
+      readyToHelp: 'मदद के लिए तैयार',
+      startVoiceQueryTap: 'आवाज़ प्रश्न शुरू करने के लिए टैप करें',
+      stopRecordingBtn: 'रिकॉर्डिंग रोकें',
+      startVoiceQueryBtn: 'आवाज़ प्रश्न शुरू करें',
+      supportedLanguages: 'समर्थित भाषाएं',
+      callExpert: 'विशेषज्ञ को कॉल करें',
+      textChat: 'टेक्स्ट चैट',
+      recentQueries: 'हाल की पूछताछ',
+      interactionHistory: 'आपकी आवाज़ इंटरेक्शन और जवाब',
+      stopAudio: 'ऑडियो रोकें',
+      playAudio: 'ऑडियो चलाएं',
+      stop: 'रोकें',
+      share: 'साझा करें',
+      noQueries: 'अभी तक कोई आवाज़ प्रश्न नहीं',
+      startAsking: 'कृषि प्रश्न पूछकर शुरू करें'
+    },
+    te: {
+      title: 'వాయిస్ మద్దతు వ్యవస్థ',
+      description: 'వాయిస్ ఇంటరాక్షన్ ద్వారా మీ స్థానిక భాషలో వ్యవసాయ సలహా పొందండి',
+      voiceAssistant: 'వాయిస్ అసిస్టెంట్',
+      assistantDescription: 'తెలుగు, హిందీ, ఇంగ్లీష్ మరియు ప్రాంతీయ భాషలలో వ్యవసాయం, వాతావరణం, పథకాలు లేదా వ్యాధుల గురించి ప్రశ్నలు అడగండి',
+      recording: 'రికార్డింగ్...',
+      stopRecordingTap: 'రికార్డింగ్ ఆపడానికి టాప్ చేయండి',
+      readyToHelp: 'సహాయానికి సిద్ధం',
+      startVoiceQueryTap: 'వాయిస్ ప్రశ్న ప్రారంభించడానికి టాప్ చేయండి',
+      stopRecordingBtn: 'రికార్డింగ్ ఆపండి',
+      startVoiceQueryBtn: 'వాయిస్ ప్రశ్న ప్రారంభించండి',
+      supportedLanguages: 'మద్దతు ఉన్న భాషలు',
+      callExpert: 'నిపుణుడికి కాల్ చేయండి',
+      textChat: 'టెక్స్ట్ చాట్',
+      recentQueries: 'ఇటీవలి ప్రశ్నలు',
+      interactionHistory: 'మీ వాయిస్ ఇంటరాక్షన్‌లు మరియు ప్రతిస్పందనలు',
+      stopAudio: 'ఆడియో ఆపండి',
+      playAudio: 'ఆడియో ప్లే చేయండి',
+      stop: 'ఆపండి',
+      share: 'షేర్ చేయండి',
+      noQueries: 'ఇంకా వాయిస్ ప్రశ్నలు లేవు',
+      startAsking: 'వ్యవసాయ ప్రశ్న అడిగి ప్రారంభించండి'
+    },
+    ta: {
+      title: 'குரல் ஆதரவு அமைப்பு',
+      description: 'குரல் தொடர்பு மூலம் உங்கள் உள்ளூர் மொழியில் விவசாய ஆலோசனை பெறுங்கள்',
+      voiceAssistant: 'குரல் உதவியாளர்',
+      assistantDescription: 'தமிழ், இந்தி, ஆங்கிலம் மற்றும் பிராந்திய மொழிகளில் விவசாயம், வானிலை, திட்டங்கள் அல்லது நோய்கள் பற்றி கேள்விகள் கேளுங்கள்',
+      recording: 'பதிவு செய்கிறது...',
+      stopRecordingTap: 'பதிவு நிறுத்த தட்டவும்',
+      readyToHelp: 'உதவிக்கு தயார்',
+      startVoiceQueryTap: 'குரல் கேள்வி தொடங்க தட்டவும்',
+      stopRecordingBtn: 'பதிவு நிறுத்து',
+      startVoiceQueryBtn: 'குரல் கேள்வி தொடங்கு',
+      supportedLanguages: 'ஆதரிக்கப்படும் மொழிகள்',
+      callExpert: 'நிபுணரை அழைக்கவும்',
+      textChat: 'உரை அரட்டை',
+      recentQueries: 'சமீபத்திய கேள்விகள்',
+      interactionHistory: 'உங்கள் குரல் தொடர்புகள் மற்றும் பதில்கள்',
+      stopAudio: 'ஆடியோ நிறுத்து',
+      playAudio: 'ஆடியோ இயக்கு',
+      stop: 'நிறுத்து',
+      share: 'பகிர்',
+      noQueries: 'இன்னும் குரல் கேள்விகள் இல்லை',
+      startAsking: 'விவசாய கேள்வி கேட்டு தொடங்குங்கள்'
+    },
+    ml: {
+      title: 'വോയ്‌സ് സപ്പോർട്ട് സിസ്റ്റം',
+      description: 'വോയ്‌സ് ഇന്ററാക്ഷൻ വഴി നിങ്ങളുടെ പ്രാദേശിക ഭാഷയിൽ കൃഷി ഉപദേശം നേടുക',
+      voiceAssistant: 'വോയ്‌സ് അസിസ്റ്റന്റ്',
+      assistantDescription: 'മലയാളം, ഹിന്ദി, ഇംഗ്ലീഷ്, പ്രാദേശിക ഭാഷകളിൽ കൃഷി, കാലാവസ്ഥ, പദ്ധതികൾ, രോഗങ്ങൾ എന്നിവയെക്കുറിച്ച് ചോദ്യങ്ങൾ ചോദിക്കുക',
+      recording: 'റെക്കോർഡിംഗ്...',
+      stopRecordingTap: 'റെക്കോർഡിംഗ് നിർത്താൻ ടാപ്പ് ചെയ്യുക',
+      readyToHelp: 'സഹായത്തിന് തയ്യാർ',
+      startVoiceQueryTap: 'വോയ്‌സ് ചോദ്യം ആരംഭിക്കാൻ ടാപ്പ് ചെയ്യുക',
+      stopRecordingBtn: 'റെക്കോർഡിംഗ് നിർത്തുക',
+      startVoiceQueryBtn: 'വോയ്‌സ് ചോദ്യം ആരംഭിക്കുക',
+      supportedLanguages: 'പിന്തുണയുള്ള ഭാഷകൾ',
+      callExpert: 'വിദഗ്ധനെ വിളിക്കുക',
+      textChat: 'ടെക്സ്റ്റ് ചാറ്റ്',
+      recentQueries: 'സമീപകാല ചോദ്യങ്ങൾ',
+      interactionHistory: 'നിങ്ങളുടെ വോയ്‌സ് ഇന്ററാക്ഷനുകളും പ്രതികരണങ്ങളും',
+      stopAudio: 'ഓഡിയോ നിർത്തുക',
+      playAudio: 'ഓഡിയോ പ്ലേ ചെയ്യുക',
+      stop: 'നിർത്തുക',
+      share: 'പങ്കിടുക',
+      noQueries: 'ഇതുവരെ വോയ്‌സ് ചോദ്യങ്ങളില്ല',
+      startAsking: 'ഒരു കൃഷി ചോദ്യം ചോദിച്ച് ആരംഭിക്കുക'
+    }
+  };
+
+  const t = translations[currentLanguage as keyof typeof translations] || translations.en;
+
   const handleStartRecording = () => {
     setIsRecording(true);
     
@@ -181,9 +301,9 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
   return (
     <div className="space-y-6" id="support">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold text-primary">Voice Support System</h2>
+        <h2 className="text-3xl font-bold text-primary">{t.title}</h2>
         <p className="text-muted-foreground">
-          Get farming advice in your local language through voice interaction
+          {t.description}
         </p>
       </div>
 
@@ -193,10 +313,10 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Mic className="w-5 h-5 text-primary" />
-              Voice Assistant
+              {t.voiceAssistant}
             </CardTitle>
             <CardDescription>
-              Ask questions about farming, weather, schemes, or diseases in Hindi, English, or regional languages
+              {t.assistantDescription}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -217,13 +337,13 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
               <div className="space-y-2">
                 {isRecording ? (
                   <>
-                    <p className="text-lg font-medium text-destructive">Recording...</p>
-                    <p className="text-sm text-muted-foreground">Tap to stop recording</p>
+                    <p className="text-lg font-medium text-destructive">{t.recording}</p>
+                    <p className="text-sm text-muted-foreground">{t.stopRecordingTap}</p>
                   </>
                 ) : (
                   <>
-                    <p className="text-lg font-medium">Ready to Help</p>
-                    <p className="text-sm text-muted-foreground">Tap to start voice query</p>
+                    <p className="text-lg font-medium">{t.readyToHelp}</p>
+                    <p className="text-sm text-muted-foreground">{t.startVoiceQueryTap}</p>
                   </>
                 )}
               </div>
@@ -237,12 +357,12 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
                 {isRecording ? (
                   <>
                     <MicOff className="w-4 h-4 mr-2" />
-                    Stop Recording
+                    {t.stopRecordingBtn}
                   </>
                 ) : (
                   <>
                     <Mic className="w-4 h-4 mr-2" />
-                    Start Voice Query
+                    {t.startVoiceQueryBtn}
                   </>
                 )}
               </Button>
@@ -250,7 +370,7 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
 
             {/* Language Selection */}
             <div className="space-y-2">
-              <h4 className="font-medium">Supported Languages</h4>
+              <h4 className="font-medium">{t.supportedLanguages}</h4>
               <div className="flex flex-wrap gap-2">
                 {[
                   { code: 'hindi', name: 'हिन्दी', flag: '🇮🇳' },
@@ -275,11 +395,11 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
             <div className="grid grid-cols-2 gap-2">
               <Button variant="outline" size="sm">
                 <Phone className="w-4 h-4 mr-2" />
-                Call Expert
+                {t.callExpert}
               </Button>
               <Button variant="outline" size="sm">
                 <MessageSquare className="w-4 h-4 mr-2" />
-                Text Chat
+                {t.textChat}
               </Button>
             </div>
           </CardContent>
@@ -290,10 +410,10 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <MessageSquare className="w-5 h-5 text-accent" />
-              Recent Queries
+              {t.recentQueries}
             </CardTitle>
             <CardDescription>
-              Your voice interactions and responses
+              {t.interactionHistory}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -327,12 +447,12 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
                       {isPlaying && currentPlayingId === query.id ? (
                         <>
                           <Pause className="w-3 h-3 mr-1" />
-                          Stop Audio
+                          {t.stopAudio}
                         </>
                       ) : (
                         <>
                           <Volume2 className="w-3 h-3 mr-1" />
-                          Play Audio
+                          {t.playAudio}
                         </>
                       )}
                     </Button>
@@ -343,11 +463,11 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
                         onClick={handleStopAudio}
                       >
                         <VolumeX className="w-3 h-3 mr-1" />
-                        Stop
+                        {t.stop}
                       </Button>
                     )}
                     <Button variant="ghost" size="sm">
-                      Share
+                      {t.share}
                     </Button>
                   </div>
                 </div>
@@ -355,8 +475,8 @@ const VoiceSupport = ({ currentLanguage }: VoiceSupportProps) => {
             ) : (
               <div className="text-center py-8 text-muted-foreground">
                 <MessageSquare className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>No voice queries yet</p>
-                <p className="text-sm mt-1">Start by asking a farming question</p>
+                <p>{t.noQueries}</p>
+                <p className="text-sm mt-1">{t.startAsking}</p>
               </div>
             )}
           </CardContent>

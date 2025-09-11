@@ -283,9 +283,9 @@ const Subsidies = ({ currentLanguage }: SubsidiesProps) => {
   return (
     <div className="space-y-6" id="subsidies">
       <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-primary">Government Subsidies</h2>
+        <h2 className="text-3xl font-bold text-primary">{t.title}</h2>
         <p className="text-muted-foreground">
-          Access financial assistance for pesticides, fertilizers, seeds, and farming equipment
+          {t.description}
         </p>
         
         {/* Search and Filter Controls */}
@@ -293,7 +293,7 @@ const Subsidies = ({ currentLanguage }: SubsidiesProps) => {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Search subsidies by name or description..."
+              placeholder={t.search}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
@@ -302,7 +302,7 @@ const Subsidies = ({ currentLanguage }: SubsidiesProps) => {
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
             <SelectTrigger className="w-full md:w-48">
               <Filter className="w-4 h-4 mr-2" />
-              <SelectValue placeholder="Category" />
+              <SelectValue placeholder={t.category} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Categories</SelectItem>
@@ -315,7 +315,7 @@ const Subsidies = ({ currentLanguage }: SubsidiesProps) => {
           </Select>
           <Select value={selectedStatus} onValueChange={setSelectedStatus}>
             <SelectTrigger className="w-full md:w-48">
-              <SelectValue placeholder="Status" />
+              <SelectValue placeholder={t.status} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Status</SelectItem>
@@ -330,7 +330,7 @@ const Subsidies = ({ currentLanguage }: SubsidiesProps) => {
             className="w-full md:w-auto"
           >
             <Calculator className="w-4 h-4 mr-2" />
-            Calculator
+            {t.calculator}
           </Button>
         </div>
 
