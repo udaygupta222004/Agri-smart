@@ -48,8 +48,8 @@ const DiseaseDetection = ({ currentLanguage }: DiseaseDetectionProps) => {
 
   const translations = {
     en: {
-      title: 'Plant Disease Detection',
-      description: 'Upload a photo of your plant to get instant disease diagnosis and treatment recommendations',
+      title: 'Crop Recommendation System',
+      description: 'Get AI-powered crop recommendations based on soil conditions, weather patterns, and market analysis',
       uploadImage: 'Upload Plant Image',
       uploadDescription: 'Take a clear photo of the affected plant parts (leaves, stems, fruits)',
       dropImage: 'Drop your image here',
@@ -71,8 +71,8 @@ const DiseaseDetection = ({ currentLanguage }: DiseaseDetectionProps) => {
       aiPrompt: 'Our AI will analyze the image and provide detailed diagnosis'
     },
     hi: {
-      title: 'पौधों के रोग की पहचान',
-      description: 'तत्काल रोग निदान और उपचार सिफारिशों के लिए अपने पौधे की तस्वीर अपलोड करें',
+      title: 'फसल सिफारिश प्रणाली',
+      description: 'मिट्टी की स्थिति, मौसम के पैटर्न और बाजार विश्लेषण के आधार पर AI-संचालित फसल सिफारिशें प्राप्त करें',
       uploadImage: 'पौधे की तस्वीर अपलोड करें',
       uploadDescription: 'प्रभावित पौधे के हिस्सों (पत्ते, तना, फल) की स्पष्ट तस्वीर लें',
       dropImage: 'अपनी तस्वीर यहाँ छोड़ें',
@@ -94,8 +94,8 @@ const DiseaseDetection = ({ currentLanguage }: DiseaseDetectionProps) => {
       aiPrompt: 'हमारा AI तस्वीर का विश्लेषण करेगा और विस्तृत निदान प्रदान करेगा'
     },
     te: {
-      title: 'మొక్కల వ్యాధి గుర్తింపు',
-      description: 'తక్షణ వ్యాధి నిర్ధారణ మరియు చికిత్స సిఫార్సుల కోసం మీ మొక్క యొక్క ఫోటోను అప్‌లోడ్ చేయండి',
+      title: 'పంట సిఫార్సు వ్యవస్థ',
+      description: 'మట్టి పరిస్థితులు, వాతావరణ నమూనాలు మరియు మార్కెట్ విశ్లేషణ ఆధారంగా AI-ఆధారిత పంట సిఫార్సులను పొందండి',
       uploadImage: 'మొక్క చిత్రాన్ని అప్‌లోడ్ చేయండి',
       uploadDescription: 'ప్రభావిత మొక్క భాగాల (ఆకులు, కాండలు, పండ్లు) స్పష్టమైన ఫోటో తీయండి',
       dropImage: 'మీ చిత్రాన్ని ఇక్కడ వదలండి',
@@ -117,8 +117,8 @@ const DiseaseDetection = ({ currentLanguage }: DiseaseDetectionProps) => {
       aiPrompt: 'మా AI చిత్రాన్ని విశ్లేషించి వివరణాత్మక నిర్ధారణను అందిస్తుంది'
     },
     ta: {
-      title: 'தாவர நோய் கண்டறிதல்',
-      description: 'உடனடி நோய் கண்டறிதல் மற்றும் சிகிச்சை பரிந்துரைகளுக்கு உங்கள் தாவரத்தின் புகைப்படத்தை பதிவேற்றவும்',
+      title: 'பயிர் பரிந்துரை அமைப்பு',
+      description: 'மண் நிலைமைகள், வானிலை முறைகள் மற்றும் சந்தை பகுப்பாய்வின் அடிப்படையில் AI-இயங்கும் பயிர் பரிந்துரைகளைப் பெறுங்கள்',
       uploadImage: 'தாவர படத்தை பதிவேற்றவும்',
       uploadDescription: 'பாதிக்கப்பட்ட தாவரப் பகுதிகளின் (இலைகள், தண்டுகள், பழங்கள்) தெளிவான புகைப்படம் எடுக்கவும்',
       dropImage: 'உங்கள் படத்தை இங்கே விடவும்',
@@ -140,8 +140,8 @@ const DiseaseDetection = ({ currentLanguage }: DiseaseDetectionProps) => {
       aiPrompt: 'எங்கள் AI படத்தை பகுப்பாய்வு செய்து விரிவான நோய் கண்டறிதலை வழங்கும்'
     },
     ml: {
-      title: 'സസ്യ രോഗ കണ്ടെത്തൽ',
-      description: 'തൽക്ഷണ രോഗ നിർണ്ണയത്തിനും ചികിത്സാ നിർദ്ദേശങ്ങൾക്കുമായി നിങ്ങളുടെ ചെടിയുടെ ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക',
+      title: 'വിള ശുപാർശ സിസ്റ്റം',
+      description: 'മണ്ണിന്റെ അവസ്ഥ, കാലാവസ്ഥാ പാറ്റേണുകൾ, മാർക്കറ്റ് വിശകലനം എന്നിവയെ അടിസ്ഥാനമാക്കി AI-പവേർഡ് വിള ശുപാർശകൾ നേടുക',
       uploadImage: 'സസ്യ ചിത്രം അപ്‌ലോഡ് ചെയ്യുക',
       uploadDescription: 'ബാധിച്ച സസ്യ ഭാഗങ്ങളുടെ (ഇലകൾ, തണ്ടുകൾ, പഴങ്ങൾ) വ്യക്തമായ ഫോട്ടോ എടുക്കുക',
       dropImage: 'നിങ്ങളുടെ ചിത്രം ഇവിടെ ഇടുക',

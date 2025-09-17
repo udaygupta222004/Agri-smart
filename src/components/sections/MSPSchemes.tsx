@@ -395,8 +395,8 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
                     <Bot className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">Crop Recommendation Assistant</CardTitle>
-                    <CardDescription>AI-powered crop recommendations and MSP guidance</CardDescription>
+                    <CardTitle className="text-lg">Crop Recommendation System</CardTitle>
+                    <CardDescription>AI-powered crop recommendations based on soil, weather, and market conditions</CardDescription>
                   </div>
                   <div className="ml-auto">
                     <Badge variant="secondary" className="bg-success/10 text-success">

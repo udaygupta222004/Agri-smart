@@ -25,7 +25,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       schemes: 'Schemes', 
       loans: 'Loans',
       subsidies: 'Subsidies',
-      diseaseDetection: 'Disease Detection',
+      diseaseDetection: 'Crop Recommendation System',
       voiceSupport: 'Voice Support',
       title: 'Krishi Jyoti',
       subtitle: 'किसान सहायता केंद्र'
@@ -35,7 +35,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       schemes: 'योजनाएं',
       loans: 'ऋण',
       subsidies: 'सब्सिडी',
-      diseaseDetection: 'रोग पहचान',
+      diseaseDetection: 'फसल सिफारिश प्रणाली',
       voiceSupport: 'आवाज़ सहायता',
       title: 'Krishi Jyoti',
       subtitle: 'किसान सहायता केंद्र'
@@ -45,7 +45,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       schemes: 'పథకాలు',
       loans: 'రుణాలు', 
       subsidies: 'సబ్సిడీలు',
-      diseaseDetection: 'వ్యాధి గుర్తింపు',
+      diseaseDetection: 'పంట సిఫార్సు వ్యవస్థ',
       voiceSupport: 'వాయిస్ సపోర్ట్',
       title: 'Krishi Jyoti',
       subtitle: 'రైతు సహాయ కేంద్రం'
@@ -55,7 +55,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       schemes: 'திட்டங்கள்',
       loans: 'கடன்கள்',
       subsidies: 'மானியங்கள்',
-      diseaseDetection: 'நோய் கண்டறிதல்',
+      diseaseDetection: 'பயிர் பரிந்துரை அமைப்பு',
       voiceSupport: 'குரல் ஆதரவு',
       title: 'Krishi Jyoti',
       subtitle: 'விவசாயி உதவி மையம்'
@@ -65,7 +65,7 @@ const Header = ({ currentLanguage, onLanguageChange, activeSection, onSectionCha
       schemes: 'പദ്ധതികൾ',
       loans: 'വായ്പകൾ',
       subsidies: 'സബ്സിഡികൾ', 
-      diseaseDetection: 'രോഗ കണ്ടെത്തൽ',
+      diseaseDetection: 'വിള ശുപാർശ സിസ്റ്റം',
       voiceSupport: 'വോയ്സ് സപ്പോർട്ട്',
       title: 'Krishi Jyoti',
       subtitle: 'കർഷക സഹായ കേന്ദ്രം'
