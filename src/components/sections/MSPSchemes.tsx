@@ -26,7 +26,7 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
 
   const translations = {
     en: {
-      title: 'MSP Schemes Assistant',
+      title: 'Crop Recommendation Assistant',
       subtitle: 'Get instant help with MSP rates, government schemes, eligibility, and applications',
       placeholder: 'Ask about MSP rates, schemes, eligibility, application process...',
       send: 'Send',
@@ -48,7 +48,7 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
       contactSupport: 'Contact Support'
     },
     hi: {
-      title: 'MSP योजना सहायक',
+      title: 'फसल सिफारिश सहायक',
       subtitle: 'MSP दरों, सरकारी योजनाओं, पात्रता और आवेदनों के साथ तत्काल सहायता प्राप्त करें',
       placeholder: 'MSP दरों, योजनाओं, पात्रता, आवेदन प्रक्रिया के बारे में पूछें...',
       send: 'भेजें',
@@ -70,7 +70,7 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
       contactSupport: 'सहायता से संपर्क करें'
     },
     te: {
-      title: 'MSP పథకాల సహాయకుడు',
+      title: 'పంట సిఫార్సు సహాయకుడు',
       subtitle: 'MSP రేట్లు, ప్రభుత్వ పథకాలు, అర్హత మరియు దరఖాస్తులతో తక్షణ సహాయం పొందండి',
       placeholder: 'MSP రేట్లు, పథకాలు, అర్హత, దరఖాస్తు ప్రక్రియ గురించి అడగండి...',
       send: 'పంపండి',
@@ -92,7 +92,7 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
       contactSupport: 'మద్దతును సంప్రదించండి'
     },
     ta: {
-      title: 'MSP திட்ட உதவியாளர்',
+      title: 'பயிர் பரிந்துரை உதவியாளர்',
       subtitle: 'MSP விகிதங்கள், அரசு திட்டங்கள், தகுதி மற்றும் விண்ணப்பங்களுடன் உடனடி உதவி பெறுங்கள்',
       placeholder: 'MSP விகிதங்கள், திட்டங்கள், தகுதி, விண்ணப்ப செயல்முறை பற்றி கேளுங்கள்...',
       send: 'அனுப்பு',
@@ -114,7 +114,7 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
       contactSupport: 'ஆதரவைத் தொடர்பு கொள்ளுங்கள்'
     },
     ml: {
-      title: 'MSP പദ്ധതി സഹായി',
+      title: 'വിള ശുപാർശ സഹായി',
       subtitle: 'MSP നിരക്കുകൾ, സർക്കാർ പദ്ധതികൾ, യോഗ്യത, അപേക്ഷകൾ എന്നിവയിൽ തൽക്ഷണ സഹായം നേടുക',
       placeholder: 'MSP നിരക്കുകൾ, പദ്ധതികൾ, യോഗ്യത, അപേക്ഷാ പ്രക്രിയ എന്നിവയെക്കുറിച്ച് ചോദിക്കുക...',
       send: 'അയയ്ക്കുക',
@@ -395,8 +395,8 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
                     <Bot className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">MSP Schemes Assistant</CardTitle>
-                    <CardDescription>AI-powered MSP information and guidance</CardDescription>
+                    <CardTitle className="text-lg">Crop Recommendation Assistant</CardTitle>
+                    <CardDescription>AI-powered crop recommendations and MSP guidance</CardDescription>
                   </div>
                   <div className="ml-auto">
                     <Badge variant="secondary" className="bg-success/10 text-success">
